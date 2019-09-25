@@ -1,5 +1,5 @@
 OPTS= -std=c++14 -Wall -Wextra -pedantic -O2
-# OPTS= -std=c++14 -Wall -Wextra -pedantic -O0 -g
+
 # CC=clang++-8 -stdlib=libc++ $(OPTS)
 CC=g++ $(OPTS)
 
@@ -7,10 +7,10 @@ CC=g++ $(OPTS)
 clean:
 	rm -rf bin
 
-.PHONY: test
-test: bin/test
-	./bin/test
+.PHONY: example
+example: bin/example
+	./bin/example
 
-bin/test: test/main.cpp test/interfaces/* test/components/* src/*
+bin/example: example/main.cpp example/interfaces/* example/components/* src/*
 	mkdir -p bin
-	$(CC) test/main.cpp -Itest -Isrc -o bin/test
+	$(CC) example/main.cpp -Iexample -Isrc -o bin/example
