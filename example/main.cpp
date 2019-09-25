@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
-#include <dsdi.hpp>
+#include <dsdi/provider.hpp>
+#include <dsdi/helper.hpp>
 #include "interfaces/receptionist.hpp"
 #include "components/polite-receptionist.hpp"
 #include "components/rude-receptionist.hpp"
@@ -25,9 +26,6 @@ int main()
   auto alberto = inject<Receptionist>(std::string("Alberto"));
   alberto->greet("Caio");
 
-  auto alberto_clone = inject<Receptionist>(*alberto);
-  alberto_clone->greet("Raquel");
-
   DSDI::Provider<Receptionist>::provides_single<PoliteReceptionist>(std::string("Estagiário"));
   auto receptionist1 = inject<Receptionist>();
   auto receptionist2 = inject<Receptionist>();
@@ -36,7 +34,6 @@ int main()
   receptionist2->greet("Larissa");
 
   assert(receptionist1.get() == receptionist2.get());
-
 
   std::cout << "Exitting" << std::endl;
 }
